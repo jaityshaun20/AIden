@@ -84,6 +84,41 @@ HTML_PAGE = """
 
         .info { background: #101a3a; padding: 16px; }
         footer { text-align: center; padding: 10px; background: #0b132b; font-size: 12px; color: #9fb2ff; }
+
+
+        .title-bar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+
+        .logo img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .chat-message {
+            display: flex;
+            align-items: flex-start; 
+            gap: 8px;                
+        }
+
+        .avatar {
+            height: 30px;            
+            width: 30px;
+            border-radius: 50%;      
+            object-fit: cover;       
+        }
+
+        .yu-logo {
+            height: 30px;
+            width: auto;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
@@ -102,11 +137,23 @@ HTML_PAGE = """
 
     <!-- CENTER CHAT -->
     <div class="main">
-        <h2>AIden</h2>
+        <div class="title-bar">    
+            <div class="logo">
+                <img src="static/santi.jpeg" alt="AIden logo">
+            </div>
+            <h2>AIden</h2>
+        </div>
         <div class="chat-box" id="chatBox">
             {% for speaker, text in chat_history %}
                 <div class="msg {{ 'aiden' if speaker == 'AIden' else '' }}">
-                    <b>{{ speaker }}:</b> {{ text }}
+                    {% if speaker == 'AIden' %}
+                        <div class="chat-message">
+                            <img src="{{ url_for('static', filename='santi.jpeg') }}" alt="AIden logo" class="avatar">
+                            <span class="chat-text">{{ text }}</span>
+                        </div>
+                    {% else %}
+                        <span class="chat-text">{{ text }}</span>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>
@@ -126,6 +173,7 @@ HTML_PAGE = """
 
     <footer>
         York University • Team AIden (Hackathon 2026)
+        <img src="static/PnkS4lUM_400x400.jpg" alt="YU logo" class="yu-logo">
     </footer>
 
     <script>
